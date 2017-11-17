@@ -3,6 +3,7 @@ package com.example.vinhhuynhlb.mvvm_kotlin_rxjava2.comic.viewer
 import android.support.v4.view.PagerAdapter
 import android.view.View
 import android.view.ViewGroup
+import com.bumptech.glide.Glide
 import com.example.vinhhuynhlb.mvvm_kotlin_rxjava2.R
 import com.example.vinhhuynhlb.mvvm_kotlin_rxjava2.data.model.PageComic
 import org.jetbrains.anko.*
@@ -30,6 +31,7 @@ class ComicViewerAdapter(val data: MutableList<PageComic>) : PagerAdapter() {
                 verticalLayout {
                     lparams(matchParent, matchParent)
                     imageView(R.color.colorAccent) {
+                        Glide.with(context).load(src).into(this)
                     }.lparams(matchParent, matchParent)
                 }
             }
