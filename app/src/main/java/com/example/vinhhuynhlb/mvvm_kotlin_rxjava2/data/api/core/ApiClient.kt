@@ -27,7 +27,7 @@ object ApiClient {
             val original = chain.request()
             val request = original.newBuilder()
                     .addHeader("Authorization",
-                            "token ${accessToken}")
+                            "token $accessToken")
                     .build()
 
             chain.proceed(request)
