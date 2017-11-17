@@ -3,10 +3,12 @@ package com.example.vinhhuynhlb.mvvm_kotlin_rxjava2.comic.viewer
 import android.support.v4.view.PagerAdapter
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import com.bumptech.glide.Glide
-import com.example.vinhhuynhlb.mvvm_kotlin_rxjava2.R
 import com.example.vinhhuynhlb.mvvm_kotlin_rxjava2.data.model.PageComic
-import org.jetbrains.anko.*
+import org.jetbrains.anko.AnkoComponent
+import org.jetbrains.anko.AnkoContext
+import org.jetbrains.anko.imageView
 
 /**
  * Copyright © 2017 AsianTech inc.
@@ -15,8 +17,11 @@ import org.jetbrains.anko.*
 class ComicViewerAdapter(val data: MutableList<PageComic>) : PagerAdapter() {
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
-        return ComicViewerAdapterUI(data[position].source)
+        val view = ComicViewerAdapterUI(data[position].source)
                 .createView(AnkoContext.create(container.context, container, false))
+        container.addView(view)
+        return view
+
     }
 
     override fun isViewFromObject(view: View, a: Any) = a == view
@@ -25,14 +30,15 @@ class ComicViewerAdapter(val data: MutableList<PageComic>) : PagerAdapter() {
         return data.size
     }
 
+    override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
+        container.removeView(`object` as ImageView)
+    }
+
     inner class ComicViewerAdapterUI(private val src: String) : AnkoComponent<ViewGroup> {
         override fun createView(ui: AnkoContext<ViewGroup>): View {
             return with(ui) {
-                verticalLayout {
-                    lparams(matchParent, matchParent)
-                    imageView(R.color.colorAccent) {
-                        Glide.with(context).load(src).into(this)
-                    }.lparams(matchParent, matchParent)
+                imageView {
+                    Glide.with(context).load(src).into(this)
                 }
             }
         }
