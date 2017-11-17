@@ -106,3 +106,4 @@ crashlytics-build.properties
 app/src/main/AndroidManifest.xml.orig
 app/src/main/res/values/colors.xml.orig
 app/src/main/res/values/styles.xml.orig
+app/libs/

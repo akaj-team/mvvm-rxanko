@@ -21,7 +21,7 @@ class ComicViewModel(private val schedulerProvider: SchedulerProvider,
                 .doOnSubscribe {
                     // Show dialog loading
                 }.doOnComplete {
-            // Hide dialog loading
+                    // Hide dialog loading
         }
     }
 
