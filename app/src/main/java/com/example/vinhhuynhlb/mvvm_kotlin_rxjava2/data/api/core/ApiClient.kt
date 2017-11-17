@@ -23,11 +23,11 @@ object ApiClient {
     init {
         val builder = OkHttpClient.Builder()
         builder.addInterceptor({ chain ->
-            val accessToken = "2ad7ced7d139e4806185ef710c8c8e218aebb081"
+            val accessToken = "85ef710c8c8e218aebb081"
             val original = chain.request()
             val request = original.newBuilder()
                     .addHeader("Authorization",
-                            "token " + accessToken)
+                            "token ${accessToken}")
                     .build()
 
             chain.proceed(request)
