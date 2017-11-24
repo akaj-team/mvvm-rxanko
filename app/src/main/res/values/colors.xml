@@ -9,4 +9,5 @@
     <color name="grayShadow">#4a445e</color>
     <color name="greenLight">#3a589e</color>
     <color name="greenShadow">#5771ac</color>
+    <color name="redBgToolBar">#F44336</color>
 </resources>
