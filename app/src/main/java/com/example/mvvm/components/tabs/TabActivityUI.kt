@@ -3,6 +3,7 @@ package com.example.mvvm.components.tabs
 import android.support.design.widget.NavigationView
 import android.support.v4.content.ContextCompat
 import android.support.v4.view.GravityCompat
+import android.support.v4.view.ViewPager
 import android.support.v4.widget.DrawerLayout
 import android.view.Gravity
 import com.example.mvvm.R
@@ -30,14 +31,14 @@ class TabActivityUI(private val tabAdapter: TabAdapter) : AnkoComponent<TabActiv
     lateinit var drawer: DrawerLayout
     lateinit var navigation: NavigationView
     lateinit var toolbar: HeaderBarView
-
+    lateinit var viewpager: ViewPager
     override fun createView(ui: AnkoContext<TabActivity>) = with(ui) {
         relativeLayout {
             lparams(matchParent, matchParent)
             drawer = drawerLayout {
                 relativeLayout {
                     lparams(matchParent, matchParent)
-                    val viewPg = viewPager {
+                    viewpager = viewPager {
                         id = ID_VIEWPAGER
                         adapter = tabAdapter
                         onPageChangeListener {
@@ -49,7 +50,7 @@ class TabActivityUI(private val tabAdapter: TabAdapter) : AnkoComponent<TabActiv
                         above(ID_TAB_LAYOUT)
                     }
                     tabLayout {
-                        setupWithViewPager(viewPg)
+                        setupWithViewPager(viewpager)
                         id = ID_TAB_LAYOUT
                         backgroundColor = ContextCompat.getColor(ctx, R.color.green)
                     }.lparams(matchParent, dip(50)) {

@@ -2,12 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/home_fragment"
+            android:id="@+id/itemNewEst"
             android:icon="@drawable/ic_home"
-            android:title="Home" />
+            android:title="@string/menu_item_newest" />
         <item
-            android:id="@+id/photo_fragment"
+            android:id="@+id/itemFavorite"
             android:icon="@drawable/ic_photo"
-            android:title="Photo" />
+            android:title="@string/menu_item_favorite" />
+
+        <item
+            android:id="@+id/itemSetting"
+            android:icon="@drawable/ic_photo"
+            android:title="@string/menu_item_setting" />
     </group>
 </menu>

@@ -27,6 +27,5 @@ class NewestFragment : Fragment() {
             positiveButton("Yes") { Log.d("VVVVV", "VVVV1") }
             negativeButton("No") { Log.d("VVVVV", "VVVV2") }
         }.show()
-
     }
 }
