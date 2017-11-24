@@ -1,11 +1,11 @@
-package com.example.mvvm.comic.detail
+package com.example.mvvm.ui.comic.detail
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
-import com.example.mvvm.data.api.core.ApiClient
-import com.example.mvvm.comic.ComicViewModel
-import com.example.mvvm.comic.viewer.ComicViewerActivity
+import com.example.mvvm.data.source.remote.core.ApiClient
+import com.example.mvvm.ui.comic.main.ComicViewModel
+import com.example.mvvm.ui.comic.viewer.ComicViewerActivity
 import com.example.mvvm.data.model.Chapter
 import com.example.mvvm.data.source.ComicRepository
 import com.example.mvvm_kotlin_rxjava2.util.SchedulerProvider
@@ -43,7 +43,7 @@ class ComicDetailActivity : AppCompatActivity() {
     private fun bindViewModel() {
         mSubscription.add(comicViewModel.getChapter(comicId)
                 .subscribe({
-                    data.addAll(it.data)
+                    data.addAll(it)
                     comicDetailAdapter.notifyDataSetChanged()
                 }, {
                     Log.d("VVVV", it.message)

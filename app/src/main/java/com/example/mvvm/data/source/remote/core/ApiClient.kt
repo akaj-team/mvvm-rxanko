@@ -1,4 +1,4 @@
-package com.example.mvvm.data.api.core
+package com.example.mvvm.data.source.remote.core
 
 import com.example.mvvm.BuildConfig
 import com.google.gson.FieldNamingPolicy
