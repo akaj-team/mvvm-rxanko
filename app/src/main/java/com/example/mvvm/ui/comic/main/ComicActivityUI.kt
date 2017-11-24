@@ -1,4 +1,4 @@
-package com.example.mvvm.comic
+package com.example.mvvm.ui.comic.main
 
 import android.support.v7.widget.GridLayoutManager
 import org.jetbrains.anko.AnkoComponent

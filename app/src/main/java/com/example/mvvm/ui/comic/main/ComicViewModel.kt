@@ -1,7 +1,7 @@
-package com.example.mvvm.comic
+package com.example.mvvm.ui.comic.main
 
-import com.example.mvvm.data.api.response.ChapterResponse
-import com.example.mvvm.data.api.response.ComicResponse
+import com.example.mvvm.data.model.Chapter
+import com.example.mvvm.data.model.Comic
 import com.example.mvvm.data.model.PageComic
 import com.example.mvvm.data.source.ComicRepository
 import com.example.mvvm_kotlin_rxjava2.util.SchedulerProvider
@@ -14,18 +14,18 @@ import io.reactivex.Observable
 class ComicViewModel(private val schedulerProvider: SchedulerProvider,
                      private val comicRepository: ComicRepository) {
 
-    fun getComic(): Observable<ComicResponse> {
+    fun getComic(): Observable<MutableList<Comic>> {
         return comicRepository.getComic()
                 .observeOn(schedulerProvider.ui())
                 .subscribeOn(schedulerProvider.io())
                 .doOnSubscribe {
                     // Show dialog loading
                 }.doOnComplete {
-                    // Hide dialog loading
+            // Hide dialog loading
         }
     }
 
-    fun getChapter(comicId: String): Observable<ChapterResponse> {
+    fun getChapter(comicId: String): Observable<MutableList<Chapter>> {
         return comicRepository.getChapter(comicId)
                 .observeOn(schedulerProvider.ui())
                 .subscribeOn(schedulerProvider.io())

@@ -1,4 +1,4 @@
-package com.example.mvvm.comic.detail
+package com.example.mvvm.ui.comic.detail
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView

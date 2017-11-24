@@ -1,20 +1,20 @@
-package com.example.mvvm.data.source
+package com.example.mvvm.data.source.remote
 
 import com.example.mvvm.data.model.User
-import com.example.mvvm.data.source.remote.AuthRemoteDataSource
+import com.example.mvvm.data.source.remote.core.ApiClient
+import com.example.mvvm.data.source.AuthDataSource
 import io.reactivex.Observable
 
 /**
  * Created by tien.hoang on 11/23/17.
  */
-class AuthRepository : AuthDataSource {
-    private val remoteDataSource = AuthRemoteDataSource()
+class AuthRemoteDataSource : AuthDataSource {
     override fun getUserInfo(userId: String): Observable<User> {
-        return remoteDataSource.getUserInfo(userId)
+        return ApiClient.getApiService().getUserInfo().map { it.data }
     }
 
     override fun login(email: String, password: String): Observable<User> {
-        return remoteDataSource.login(email, password)
+        return ApiClient.getApiService().login(email).map { it.data }
     }
 
     override fun register(email: String, password: String, age: Int): Observable<User> {

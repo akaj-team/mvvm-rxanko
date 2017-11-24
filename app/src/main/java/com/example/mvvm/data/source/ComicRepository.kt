@@ -1,9 +1,10 @@
 package com.example.mvvm.data.source
 
-import com.example.mvvm.data.api.core.ApiService
-import com.example.mvvm.data.api.response.ChapterResponse
-import com.example.mvvm.data.api.response.ComicResponse
+import com.example.mvvm.data.model.Chapter
+import com.example.mvvm.data.model.Comic
+import com.example.mvvm.data.source.remote.core.ApiService
 import com.example.mvvm.data.model.PageComic
+import com.example.mvvm.data.source.remote.ComicRemoteDataSource
 import io.reactivex.Observable
 
 /**
@@ -11,15 +12,16 @@ import io.reactivex.Observable
  * Created by vinh.huynh on 11/16/17.
  */
 class ComicRepository(private val apiService: ApiService) : ComicDataSource {
+    private val remoteDataSource = ComicRemoteDataSource()
     override fun getPageComic(chapterId: String): Observable<MutableList<PageComic>> {
-        return apiService.getPageComic(chapterId)
+        return remoteDataSource.getPageComic(chapterId)
     }
 
-    override fun getChapter(comicId: String): Observable<ChapterResponse> {
-        return apiService.getChapterOfComic(comicId)
+    override fun getChapter(comicId: String): Observable<MutableList<Chapter>> {
+        return remoteDataSource.getChapter(comicId)
     }
 
-    override fun getComic(): Observable<ComicResponse> {
-        return apiService.getComic()
+    override fun getComic(): Observable<MutableList<Comic>> {
+        return remoteDataSource.getComic()
     }
 }
