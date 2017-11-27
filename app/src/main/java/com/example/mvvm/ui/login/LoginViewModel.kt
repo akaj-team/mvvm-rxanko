@@ -1,6 +1,6 @@
 package com.example.mvvm.ui.login
 
-import com.example.mvvm.data.api.response.LoginResponse
+import com.example.mvvm.data.model.User
 import com.example.mvvm.data.source.AuthRepository
 import com.example.mvvm_kotlin_rxjava2.util.SchedulerProvider
 import io.reactivex.Observable
@@ -11,7 +11,7 @@ import io.reactivex.Observable
 class LoginViewModel(private val schedulerProvider: SchedulerProvider,
                      private val authRepository: AuthRepository) {
 
-    fun login(email: String, password: String): Observable<LoginResponse> {
+    fun login(email: String, password: String): Observable<User> {
         return authRepository.login(email, password)
                 .observeOn(schedulerProvider.ui())
                 .subscribeOn(schedulerProvider.io())

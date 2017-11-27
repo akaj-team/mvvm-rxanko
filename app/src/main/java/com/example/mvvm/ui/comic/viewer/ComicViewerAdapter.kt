@@ -1,4 +1,4 @@
-package com.example.mvvm.comic.viewer
+package com.example.mvvm.ui.comic.viewer
 
 import android.support.v4.view.PagerAdapter
 import android.view.View

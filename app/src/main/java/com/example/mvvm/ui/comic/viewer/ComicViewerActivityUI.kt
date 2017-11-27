@@ -1,6 +1,6 @@
-package com.example.mvvm.comic.viewer
+package com.example.mvvm.ui.comic.viewer
 
-import com.example.mvvm.comic.viewer.ComicViewerActivity
+import com.example.mvvm.ui.comic.viewer.ComicViewerActivity
 import org.jetbrains.anko.AnkoComponent
 import org.jetbrains.anko.AnkoContext
 import org.jetbrains.anko.matchParent

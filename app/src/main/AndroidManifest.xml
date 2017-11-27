@@ -23,9 +23,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".comic.detail.ComicDetailActivity" />
-        <activity android:name=".comic.viewer.ComicViewerActivity" />
+        <activity android:name=".ui.comic.detail.ComicDetailActivity" />
+        <activity android:name=".ui.comic.viewer.ComicViewerActivity" />
+        <activity android:name=".ui.comic.main.ComicActivity" />
     </application>
 
 </manifest>
