@@ -92,9 +92,8 @@ interface OnHeaderBarListener {
 }
 
 @Suppress("NOTHING_TO_INLINE")
-inline fun ViewManager.headerBar(onHeaderBarListener: OnHeaderBarListener, idView: Int = -1)
+inline fun ViewManager.headerBar(onHeaderBarListener: OnHeaderBarListener, idView: Int = 11)
         = myHeaderBar(onHeaderBarListener) {
-    id = idView
 }
 
 inline fun ViewManager.myHeaderBar(onHeaderBarListener: OnHeaderBarListener,

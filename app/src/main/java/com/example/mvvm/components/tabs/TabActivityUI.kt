@@ -24,8 +24,8 @@ import org.jetbrains.anko.support.v4.viewPager
 class TabActivityUI(private val tabAdapter: TabAdapter) : AnkoComponent<TabActivity> {
     companion object {
         private const val ID_TAB_LAYOUT = 9292
-        private const val ID_VIEWPAGER = 9293
         private const val ID_HEADER_BAR = 9293
+        private const val ID_VIEW_PAGER = 9291
     }
 
     lateinit var drawer: DrawerLayout
@@ -39,8 +39,8 @@ class TabActivityUI(private val tabAdapter: TabAdapter) : AnkoComponent<TabActiv
                 relativeLayout {
                     lparams(matchParent, matchParent)
                     viewpager = viewPager {
-                        id = ID_VIEWPAGER
                         adapter = tabAdapter
+                        id = ID_VIEW_PAGER
                         onPageChangeListener {
                             onPageSelected { position ->
                                 toolbar.setToolBarTitle(tabAdapter.getPageTitle(position).toString())
@@ -48,6 +48,7 @@ class TabActivityUI(private val tabAdapter: TabAdapter) : AnkoComponent<TabActiv
                         }
                     }.lparams(matchParent, matchParent) {
                         above(ID_TAB_LAYOUT)
+                        topMargin = dip(48)
                     }
                     tabLayout {
                         setupWithViewPager(viewpager)
@@ -62,9 +63,7 @@ class TabActivityUI(private val tabAdapter: TabAdapter) : AnkoComponent<TabActiv
                 }.lparams(wrapContent, matchParent) {
                     gravity = Gravity.START
                 }
-            }.lparams(matchParent, matchParent) {
-                below(ID_HEADER_BAR)
-            }
+            }.lparams(matchParent, matchParent)
 
             toolbar = headerBar(object : OnHeaderBarListener {
                 override fun onLeftMenuClick() {
@@ -74,8 +73,7 @@ class TabActivityUI(private val tabAdapter: TabAdapter) : AnkoComponent<TabActiv
                         drawer.openDrawer(GravityCompat.START)
                     }
                 }
-            }, ID_HEADER_BAR)
-                    .setToolBarTitle(tabAdapter.getPageTitle(0).toString())
+            }).setToolBarTitle(tabAdapter.getPageTitle(0).toString())
                     .lparams(matchParent, dip(48)) {
                         alignParentTop()
                     }
