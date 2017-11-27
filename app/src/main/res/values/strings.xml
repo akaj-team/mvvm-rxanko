@@ -13,4 +13,10 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+    <string name="material_toolbar">Material ToolBar</string>
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
+    <string name="menu_item_newest">Newest Fragment</string>
+    <string name="menu_item_favorite">FavoriteFragment</string>
+    <string name="menu_item_setting">SettingFragment</string>
 </resources>

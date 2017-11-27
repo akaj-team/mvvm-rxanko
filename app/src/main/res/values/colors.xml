@@ -3,4 +3,11 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="purple">#2a2442</color>
+    <color name="green">#32c9c0</color>
+    <color name="grayLight">#352f4c</color>
+    <color name="grayShadow">#4a445e</color>
+    <color name="greenLight">#3a589e</color>
+    <color name="greenShadow">#5771ac</color>
+    <color name="redBgToolBar">#F44336</color>
 </resources>
