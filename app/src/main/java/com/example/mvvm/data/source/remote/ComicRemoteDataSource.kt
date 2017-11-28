@@ -12,15 +12,15 @@ import io.reactivex.Observable
  */
 class ComicRemoteDataSource : ComicDataSource {
     override fun getChapter(comicId: String): Observable<MutableList<Chapter>> {
-        return ApiClient.getApiService().getChapterOfComic(comicId).map { it.data }
+        return ApiClient.instance.getChapterOfComic(comicId).map { it.data }
     }
 
     override fun getPageComic(chapterId: String): Observable<MutableList<PageComic>> {
-        return ApiClient.getApiService().getPageComic(chapterId)
+        return ApiClient.instance.getPageComic(chapterId)
     }
 
     override fun getComic(): Observable<MutableList<Comic>> {
-        return ApiClient.getApiService().getComic().map { it.data }
+        return ApiClient.instance.getComic().toObservable().flatMap { Observable.just(it.data) }
     }
 
 }

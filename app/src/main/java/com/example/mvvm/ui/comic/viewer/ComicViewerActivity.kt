@@ -27,7 +27,7 @@ class ComicViewerActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         ComicViewerActivityUI().setContentView(this)
-        comicViewModel = ComicViewModel(SchedulerProvider.getInstance(), ComicRepository(ApiClient.getApiService()))
+        comicViewModel = ComicViewModel(SchedulerProvider.getInstance(), ComicRepository())
         chapterId = intent.extras.getString("chapterId")
     }
 

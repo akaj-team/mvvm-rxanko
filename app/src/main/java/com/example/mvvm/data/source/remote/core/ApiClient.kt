@@ -6,53 +6,46 @@ import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 /**
- * Copyright © 2016 AsianTech inc.
- * Created by vinh.huynh on 10/16/17.
+ * Remote api
  */
 object ApiClient {
-    private val CONNECTION_TIMEOUT = TimeUnit.MINUTES.toMillis(3)
-    private val mApiService: ApiService
 
-    fun getApiService(): ApiService = mApiService
+    private val TIMEOUT = 20_000L
+    private val HEADER_AUTH_KEY = "Authorization"
+    private val HEADER_AUTH_PREFIX = "token"
 
-    init {
-        val builder = OkHttpClient.Builder()
-        builder.addInterceptor({ chain ->
-            val accessToken = "85ef710c8c8e218aebb081"
-            val original = chain.request()
-            val request = original.newBuilder()
-                    .addHeader("Authorization",
-                            "token $accessToken")
-                    .build()
+    var token: String = "85ef710c8c8e218aebb081"
+        get() {
+            return "$HEADER_AUTH_PREFIX $field"
+        }
+    val instance: ApiService by lazy {
+        val httpClient = OkHttpClient.Builder()
 
-            chain.proceed(request)
-        })
-        //Enable log debug for debug mode
+        httpClient.addInterceptor { chain ->
+            val request = chain.request().newBuilder()
+            request.addHeader(HEADER_AUTH_KEY, token)
+            chain.proceed(request.build())
+        }
         if (BuildConfig.DEBUG) {
-            val logging = HttpLoggingInterceptor()
-            logging.level = HttpLoggingInterceptor.Level.BODY
-            builder.addInterceptor(logging)
+            httpClient.addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
         }
 
-        builder.connectTimeout(CONNECTION_TIMEOUT, TimeUnit.MILLISECONDS)
-        builder.readTimeout(CONNECTION_TIMEOUT, TimeUnit.MILLISECONDS)
-        builder.writeTimeout(CONNECTION_TIMEOUT, TimeUnit.MILLISECONDS)
-        val okHttpClient = builder.build()
-        val gSon = GsonBuilder()
-                .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
-                .create()
-
+        httpClient.readTimeout(TIMEOUT, TimeUnit.MILLISECONDS)
+        httpClient.writeTimeout(TIMEOUT, TimeUnit.MILLISECONDS)
+        httpClient.connectTimeout(TIMEOUT, TimeUnit.SECONDS)
         val retrofit = Retrofit.Builder()
                 .baseUrl("https://freestory.000webhostapp.com/api/")
-                .addConverterFactory(GsonConverterFactory.create(gSon))
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .client(okHttpClient)
+                .addCallAdapterFactory(CustomCallAdapterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(GsonBuilder()
+                        .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+                        .create()))
+                .client(httpClient.build())
                 .build()
-        mApiService = retrofit.create(ApiService::class.java)
+
+        retrofit.create(ApiService::class.java)
     }
 }

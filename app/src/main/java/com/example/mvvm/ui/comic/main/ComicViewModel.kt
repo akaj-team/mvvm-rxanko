@@ -1,9 +1,10 @@
 package com.example.mvvm.ui.comic.main
 
+import android.util.Log.d
 import com.example.mvvm.data.model.Chapter
 import com.example.mvvm.data.model.Comic
 import com.example.mvvm.data.model.PageComic
-import com.example.mvvm.data.source.ComicRepository
+import com.example.mvvm.data.source.ComicDataSource
 import com.example.mvvm_kotlin_rxjava2.util.SchedulerProvider
 import io.reactivex.Observable
 
@@ -12,17 +13,19 @@ import io.reactivex.Observable
  * Created by vinh.huynh on 11/17/17.
  */
 class ComicViewModel(private val schedulerProvider: SchedulerProvider,
-                     private val comicRepository: ComicRepository) {
+                     private val comicRepository: ComicDataSource) {
+
+
 
     fun getComic(): Observable<MutableList<Comic>> {
         return comicRepository.getComic()
                 .observeOn(schedulerProvider.ui())
                 .subscribeOn(schedulerProvider.io())
+                .doOnNext { d("xxx", "onNext") }
+                .doOnError { d("xxx", "onError") }
                 .doOnSubscribe {
                     // Show dialog loading
-                }.doOnComplete {
-            // Hide dialog loading
-        }
+                }
     }
 
     fun getChapter(comicId: String): Observable<MutableList<Chapter>> {

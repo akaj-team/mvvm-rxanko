@@ -27,7 +27,7 @@ class ComicDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         comicDetailAdapter = ComicDetailAdapter(this, data)
         ComicDetailActivityUI(comicDetailAdapter).setContentView(this)
-        comicViewModel = ComicViewModel(SchedulerProvider.getInstance(), ComicRepository(ApiClient.getApiService()))
+        comicViewModel = ComicViewModel(SchedulerProvider.getInstance(), ComicRepository())
         comicId = intent.extras.getString("comicId")
     }
 

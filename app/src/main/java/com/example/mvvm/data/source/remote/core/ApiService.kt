@@ -6,6 +6,7 @@ import com.example.mvvm.data.model.PageComic
 import com.example.mvvm.data.model.User
 import com.example.mvvm.data.source.remote.response.Response
 import io.reactivex.Observable
+import io.reactivex.Single
 import retrofit2.http.*
 
 /**
@@ -13,13 +14,13 @@ import retrofit2.http.*
  * Created by vinh.huynh on 10/16/17.
  */
 interface ApiService {
-    @GET("api-stories.php")
-    fun getComic(): Observable<Response<MutableList<Comic>>>
+    @GET("instance-stories.php")
+    fun getComic(): Single<Response<MutableList<Comic>>>
 
-    @GET("api-chapters.php")
+    @GET("instance-chapters.php")
     fun getChapterOfComic(@Query("storyId") storyID: String): Observable<Response<MutableList<Chapter>>>
 
-    @GET("api-contents.php")
+    @GET("instance-contents.php")
     fun getPageComic(@Query("chapterId") chapterId: String): Observable<MutableList<PageComic>>
 
     @POST("login")

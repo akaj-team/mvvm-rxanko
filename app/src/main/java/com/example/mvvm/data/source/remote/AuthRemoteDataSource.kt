@@ -10,11 +10,11 @@ import io.reactivex.Observable
  */
 class AuthRemoteDataSource : AuthDataSource {
     override fun getUserInfo(userId: String): Observable<User> {
-        return ApiClient.getApiService().getUserInfo().map { it.data }
+        return ApiClient.instance.getUserInfo().map { it.data }
     }
 
     override fun login(email: String, password: String): Observable<User> {
-        return ApiClient.getApiService().login(email).map { it.data }
+        return ApiClient.instance.login(email).map { it.data }
     }
 
     override fun register(email: String, password: String, age: Int): Observable<User> {
