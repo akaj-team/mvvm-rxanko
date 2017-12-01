@@ -1,8 +1,9 @@
 package com.example.mvvm.ui.login
 
 import android.os.Bundle
-import android.util.Log
+import com.example.mvvm.data.model.User
 import com.example.mvvm.data.source.AuthRepository
+import com.example.mvvm.data.source.remote.core.CallbackWrapper
 import com.example.mvvm.ui.BaseActivity
 import com.example.mvvm_kotlin_rxjava2.util.SchedulerProvider
 import io.reactivex.disposables.CompositeDisposable
@@ -23,12 +24,10 @@ class LoginActivity : BaseActivity() {
 
     internal fun callLogin(email: String, password: String) {
         subscription.add(viewModel.login(email, password)
-                .subscribe({
-                    ui.btnLogin.text = "Success!!"
-                    Log.d("xxx", "on data response")
-                }, {
-                    Log.d("VVVV", it.message)
-                    ui.btnLogin.text = "Failed!!"
+                .subscribeWith(object : CallbackWrapper<User>(this) {
+                    override fun onSuccess(t: User) {
+
+                    }
                 }))
     }
 

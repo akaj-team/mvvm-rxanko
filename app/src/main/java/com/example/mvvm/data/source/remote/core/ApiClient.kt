@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit
  * Created by vinh.huynh on 10/16/17.
  */
 object ApiClient {
-    private val CONNECTION_TIMEOUT = TimeUnit.MINUTES.toMillis(3)
+    private val CONNECTION_TIMEOUT = TimeUnit.SECONDS.toMillis(20)
     private val mApiService: ApiService
 
     fun getApiService(): ApiService = mApiService

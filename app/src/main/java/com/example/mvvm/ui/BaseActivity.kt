@@ -2,6 +2,8 @@ package com.example.mvvm.ui
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
+import com.example.mvvm.data.source.remote.core.CallbackWrapper
 import io.reactivex.disposables.CompositeDisposable
 
 abstract class BaseActivity : AppCompatActivity() {
@@ -25,4 +27,8 @@ abstract class BaseActivity : AppCompatActivity() {
 
     abstract fun bindViewModel()
     abstract fun unbindViewModel()
+
+    fun onHandleApiError(networkError: CallbackWrapper.NetworkError, errorMess: String) {
+        Log.d("VVVV", networkError.toString() + "  " + errorMess)
+    }
 }
