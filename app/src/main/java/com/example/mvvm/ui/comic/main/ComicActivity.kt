@@ -1,13 +1,12 @@
 package com.example.mvvm.ui.comic.main
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.util.Log
-import android.util.Log.d
-import com.example.mvvm.data.source.remote.core.ApiClient
-import com.example.mvvm.ui.comic.detail.ComicDetailActivity
 import com.example.mvvm.data.model.Comic
 import com.example.mvvm.data.source.ComicRepository
+import com.example.mvvm.data.source.remote.core.ApiClient
+import com.example.mvvm.data.source.remote.core.CallbackWrapper
+import com.example.mvvm.ui.BaseActivity
+import com.example.mvvm.ui.comic.detail.ComicDetailActivity
 import com.example.mvvm_kotlin_rxjava2.util.SchedulerProvider
 import io.reactivex.disposables.CompositeDisposable
 import org.jetbrains.anko.intentFor
@@ -17,7 +16,7 @@ import org.jetbrains.anko.setContentView
  * Copyright © 2017 AsianTech inc.
  * Created by vinh.huynh on 11/17/17.
  */
-class ComicActivity : AppCompatActivity() {
+class ComicActivity : BaseActivity() {
     private var data = mutableListOf<Comic>()
     private lateinit var adapter: ComicAdapter
     private lateinit var comicViewModel: ComicViewModel
@@ -29,32 +28,21 @@ class ComicActivity : AppCompatActivity() {
         comicViewModel = ComicViewModel(SchedulerProvider.getInstance(), ComicRepository(ApiClient.getApiService()))
     }
 
-    override fun onStart() {
-        super.onStart()
-        bindViewModel()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        unbindViewModel()
-    }
 
     fun viewComicDetail(comicId: String) {
         startActivity(intentFor<ComicDetailActivity>("comicId" to comicId))
     }
 
-    private fun bindViewModel() {
+    override fun bindViewModel() {
         mSubscription.add(comicViewModel.getComic()
-                .subscribe({
-                    d("xxx", "count: ${it.size}")
-                    data.addAll(it)
-                    adapter.notifyDataSetChanged()
-                }, {
-                    Log.d("VVVV", it.message)
+                .subscribeWith(object : CallbackWrapper<MutableList<Comic>>(this) {
+                    override fun onSuccess(t: MutableList<Comic>) {
+                        data.addAll(t)
+                        adapter.notifyDataSetChanged()
+                    }
                 }))
     }
 
-    private fun unbindViewModel() {
-        mSubscription.clear()
+    override fun unbindViewModel() {
     }
 }

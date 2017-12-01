@@ -16,7 +16,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".components.tabs.TabActivity">
+        <activity android:name=".ui.login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,7 +25,6 @@
         </activity>
         <activity android:name=".ui.comic.detail.ComicDetailActivity" />
         <activity android:name=".ui.comic.viewer.ComicViewerActivity" />
-        <activity android:name=".ui.comic.main.ComicActivity" />
     </application>
 
 </manifest>
