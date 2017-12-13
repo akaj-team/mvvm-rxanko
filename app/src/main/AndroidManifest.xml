@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -16,7 +17,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".components.tabs.TabActivity">
+        <activity android:name=".ui.comic.main.ComicActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,7 +27,7 @@
         </activity>
         <activity android:name=".ui.comic.detail.ComicDetailActivity" />
         <activity android:name=".ui.comic.viewer.ComicViewerActivity" />
-        <activity android:name=".ui.comic.main.ComicActivity" />
+        <activity android:name=".components.tabs.TabActivity" />
     </application>
 
 </manifest>

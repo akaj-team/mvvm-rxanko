@@ -19,7 +19,7 @@ class ComicActivityUI(private val comicAdapter: ComicAdapter) : AnkoComponent<Co
             layoutManager = GridLayoutManager(context, NUM_COLUMN)
             adapter = comicAdapter
             comicAdapter.onItemClick = { comic ->
-                owner.viewComicDetail(comic.storyId)
+                owner.viewComicDetail(comic.storyId.toString())
             }
         }
     }
