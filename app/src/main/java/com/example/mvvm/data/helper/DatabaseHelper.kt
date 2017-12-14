@@ -79,7 +79,23 @@ class DatabaseHelper(ctx: Context) : ManagedSQLiteOpenHelper(ctx, "WayLocalDatab
     fun getComicWithMultiCondition(idRange: String, chapterCount: String): MutableList<Comic> {
         val result = use {
             select(Comic.TABLE_NAME)
-                    .whereArgs("${Comic.COLUMN_ID} > $idRange and ${Comic.COLUMN_CHAPTER_COUNT} like $chapterCount")
+                    .whereArgs("${Comic.COLUMN_ID} > $idRange and " +
+                            "${Comic.COLUMN_CHAPTER_COUNT} like $chapterCount")
+                    .exec {
+                        parseList(classParser<Comic>())
+                    }
+        }
+        return result as MutableList<Comic>
+    }
+
+    fun getComicWithMultiConditionAnotherWay(idRange: String, chapterCount: String): MutableList<Comic> {
+        val result = use {
+            select(Comic.TABLE_NAME)
+                    .whereArgs("${Comic.COLUMN_ID} > {id} and " +
+                            "${Comic.COLUMN_CHAPTER_COUNT} like {chapterCount}",
+                            "id" to idRange,
+                            "chapterCount" to chapterCount
+                    )
                     .exec {
                         parseList(classParser<Comic>())
                     }
