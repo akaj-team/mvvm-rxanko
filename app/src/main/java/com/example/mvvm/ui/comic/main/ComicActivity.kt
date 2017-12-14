@@ -4,10 +4,11 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.util.Log.d
-import com.example.mvvm.data.source.remote.core.ApiClient
-import com.example.mvvm.ui.comic.detail.ComicDetailActivity
+import com.example.mvvm.data.helper.wayDatabase
 import com.example.mvvm.data.model.Comic
 import com.example.mvvm.data.source.ComicRepository
+import com.example.mvvm.data.source.remote.core.ApiClient
+import com.example.mvvm.ui.comic.detail.ComicDetailActivity
 import com.example.mvvm_kotlin_rxjava2.util.SchedulerProvider
 import io.reactivex.disposables.CompositeDisposable
 import org.jetbrains.anko.intentFor
@@ -32,6 +33,10 @@ class ComicActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         bindViewModel()
+        Log.d("VVVV123", wayDatabase.getAllComic().size.toString())
+        Log.d("VVVV123", wayDatabase.getComicWithSingleCondition("70").size.toString())
+        Log.d("VVVV123", wayDatabase.getComicWithMultiCondition("70", "121").size.toString())
+        wayDatabase.updateComicName("New Name Name New")
     }
 
     override fun onPause() {
@@ -49,6 +54,7 @@ class ComicActivity : AppCompatActivity() {
                     d("xxx", "count: ${it.size}")
                     data.addAll(it)
                     adapter.notifyDataSetChanged()
+                    wayDatabase.insertComicWithArray(it)
                 }, {
                     Log.d("VVVV", it.message)
                 }))
