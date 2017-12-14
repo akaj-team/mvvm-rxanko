@@ -31,7 +31,9 @@ class DatabaseHelper(ctx: Context) : ManagedSQLiteOpenHelper(ctx, "WayLocalDatab
     }
 
     private fun createTableComic(database: SQLiteDatabase) {
-        database.createTable(Comic.TABLE_NAME, true, Comic.COLUMN_ID to TEXT,
+        database.createTable(Comic.TABLE_NAME, true,
+                Comic.COLUMN_ID to INTEGER + PRIMARY_KEY + AUTOINCREMENT,
+                Comic.COLUMN_STORY_ID to TEXT,
                 Comic.COLUMN_NAME to TEXT,
                 Comic.COLUMN_CHAPTER_COUNT to TEXT,
                 Comic.COLUMN_AUTHOR to TEXT,
@@ -50,7 +52,7 @@ class DatabaseHelper(ctx: Context) : ManagedSQLiteOpenHelper(ctx, "WayLocalDatab
             use {
                 with(it) {
                     insert(Comic.TABLE_NAME,
-                            Comic.COLUMN_ID to storyId,
+                            Comic.COLUMN_STORY_ID to storyId,
                             Comic.COLUMN_NAME to storyName,
                             Comic.COLUMN_CHAPTER_COUNT to chaptersCount,
                             Comic.COLUMN_AUTHOR to author,
@@ -63,10 +65,21 @@ class DatabaseHelper(ctx: Context) : ManagedSQLiteOpenHelper(ctx, "WayLocalDatab
         }
     }
 
-    fun getComicWithCondition(queryData: String): MutableList<Comic> {
+    fun getComicWithSingleCondition(idRange: String): MutableList<Comic> {
         val result = use {
             select(Comic.TABLE_NAME)
-                    .whereArgs("${Comic.COLUMN_ID} like ($queryData)")
+                    .whereArgs("${Comic.COLUMN_ID} > ($idRange)")
+                    .exec {
+                        parseList(classParser<Comic>())
+                    }
+        }
+        return result as MutableList<Comic>
+    }
+
+    fun getComicWithMultiCondition(idRange: String, chapterCount: String): MutableList<Comic> {
+        val result = use {
+            select(Comic.TABLE_NAME)
+                    .whereArgs("${Comic.COLUMN_ID} > $idRange and ${Comic.COLUMN_CHAPTER_COUNT} like $chapterCount")
                     .exec {
                         parseList(classParser<Comic>())
                     }

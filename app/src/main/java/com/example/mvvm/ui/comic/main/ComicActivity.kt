@@ -34,6 +34,8 @@ class ComicActivity : AppCompatActivity() {
         super.onStart()
         bindViewModel()
         Log.d("VVVV123", wayDatabase.getAllComic().size.toString())
+        Log.d("VVVV123", wayDatabase.getComicWithSingleCondition("70").size.toString())
+        Log.d("VVVV123", wayDatabase.getComicWithMultiCondition("70", "121").size.toString())
     }
 
     override fun onPause() {
