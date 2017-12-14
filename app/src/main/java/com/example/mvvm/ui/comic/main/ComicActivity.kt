@@ -36,6 +36,7 @@ class ComicActivity : AppCompatActivity() {
         Log.d("VVVV123", wayDatabase.getAllComic().size.toString())
         Log.d("VVVV123", wayDatabase.getComicWithSingleCondition("70").size.toString())
         Log.d("VVVV123", wayDatabase.getComicWithMultiCondition("70", "121").size.toString())
+        wayDatabase.updateComicName("New Name Name New")
     }
 
     override fun onPause() {

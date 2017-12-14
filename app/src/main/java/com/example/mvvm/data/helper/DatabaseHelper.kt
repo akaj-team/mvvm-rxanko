@@ -112,6 +112,15 @@ class DatabaseHelper(ctx: Context) : ManagedSQLiteOpenHelper(ctx, "WayLocalDatab
         }
         return result as MutableList<Comic>
     }
+
+    fun updateComicName(comicName: String) {
+        use {
+            update(Comic.TABLE_NAME, Comic.COLUMN_NAME to comicName)
+                    .whereArgs("${Comic.COLUMN_ID} = {id}",
+                            "id" to 42)
+                    .exec()
+        }
+    }
 }
 
 val Context.wayDatabase: DatabaseHelper get() = DatabaseHelper.getInstance(applicationContext)
