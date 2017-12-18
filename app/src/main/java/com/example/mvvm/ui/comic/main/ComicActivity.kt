@@ -4,10 +4,10 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.util.Log.d
-import com.example.mvvm.data.source.remote.core.ApiClient
-import com.example.mvvm.ui.comic.detail.ComicDetailActivity
 import com.example.mvvm.data.model.Comic
 import com.example.mvvm.data.source.ComicRepository
+import com.example.mvvm.data.source.remote.core.ApiClient
+import com.example.mvvm.ui.comic.detail.ComicDetailActivity
 import com.example.mvvm_kotlin_rxjava2.util.SchedulerProvider
 import io.reactivex.disposables.CompositeDisposable
 import org.jetbrains.anko.intentFor
@@ -27,6 +27,7 @@ class ComicActivity : AppCompatActivity() {
         adapter = ComicAdapter(this, data)
         ComicActivityUI(adapter).setContentView(this)
         comicViewModel = ComicViewModel(SchedulerProvider.getInstance(), ComicRepository(ApiClient.getApiService()))
+
     }
 
     override fun onStart() {
@@ -41,6 +42,7 @@ class ComicActivity : AppCompatActivity() {
 
     fun viewComicDetail(comicId: String) {
         startActivity(intentFor<ComicDetailActivity>("comicId" to comicId))
+
     }
 
     private fun bindViewModel() {
